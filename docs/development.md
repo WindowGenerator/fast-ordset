@@ -22,34 +22,18 @@ pip install maturin
 
 ## Build
 
-| Goal | Command |
-|------|--------|
-| Debug (fast compile, slow runtime) | `maturin develop` or `uv run maturin develop` |
-| Release (slow compile, fast runtime) | `maturin develop --release` |
-| Wheel only | `maturin build --release` → `target/wheels/*.whl` |
-
-For free-threaded (no-GIL) Python, set env (or use `scripts/common_env.sh`):
-
 ```bash
-export UNSAFE_PYO3_BUILD_FREE_THREADED=1
-export UNSAFE_PYO3_SKIP_VERSION_CHECK=1
-maturin develop --release
+./scripts/build.sh
 ```
 
 ## Tests
 
 - **Unit tests** (in `tests/`):
   ```bash
-  pytest tests -v
-  # or
-  uv run pytest tests -v
-  ```
-- **Quick dev loop** (debug build + tests):
-  ```bash
   ./scripts/debug.sh
   ```
 
-See [scripts](scripts.md) for `debug.sh`, `benchmark_time.sh`, `benchmark_mem.sh`.
+See [scripts](scripts.md).
 
 ## Benchmarks
 
@@ -71,14 +55,11 @@ Use a release build before benchmarking. Details: [benchmarks](benchmarks.md).
 
 ## Code quality
 
-- **Rust:** `cargo fmt`, `cargo clippy` (and `cargo test` for Rust tests if any).
-- **Python:** Pytest for tests; coverage via `pytest-cov` (see `pyproject.toml` and `[tool.coverage.*]`).
+**Add it**
 
 ## Releasing
 
-1. Bump version in `pyproject.toml` and `Cargo.toml` if needed.
-2. `maturin build --release` (optionally for multiple targets).
-3. Publish wheels/sdist to PyPI (e.g. `twine upload target/wheels/*.whl` or use CI).
+**Add it**
 
 ## Docs
 
