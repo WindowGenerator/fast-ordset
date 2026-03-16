@@ -73,8 +73,8 @@ def _measure_peak_mb(operation, rounds=3):
         gc.collect()
         start_rss = _get_rss_bytes()
         operation()
-        gc.collect()
         rss = _get_rss_bytes() - start_rss
+        gc.collect()
         if rss > peak_bytes:
             peak_bytes = rss
     return peak_bytes / (1024 * 1024)

@@ -2,7 +2,8 @@
 name = "fast-ordset"
 version = "0.4.0"
 description = "Ordered set for Python implemented in Rust"
-requires-python = ">=3.10,<3.15"
+requires-python = ">=3.9,<3.15"
+license = "MIT"
 
 [build-system]
 requires = ["maturin>=1.0,<2.0"]
