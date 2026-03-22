@@ -335,7 +335,7 @@ impl OrderedSet {
     fn other_as_index_set(&self, other: &Bound<'_, PyAny>) -> PyResult<IndexSet<PyHashable>> {
         if let Ok(other_ordered) = other.downcast::<OrderedSet>() {
             let other_ref = other_ordered.try_borrow()?;
-            return Ok(lock_inner(&*other_ref).clone());
+            return Ok(lock_inner(&other_ref).clone());
         }
         Self::sequence_to_set(other)
     }
@@ -360,7 +360,7 @@ impl OrderedSetIterator {
         let result = {
             let set_ref = unsafe { slf.set.bind(py).downcast_unchecked::<OrderedSet>() };
             let set_guard = set_ref.try_borrow().ok()?;
-            let inner = lock_inner(&*set_guard);
+            let inner = lock_inner(&set_guard);
             let elem_ref = inner.get_index(slf.index)?;
             let bound_elem = elem_ref.obj.clone_ref(py).bind(py).clone();
             Some(bound_elem)

@@ -17,6 +17,7 @@ dev = [
     "pytest-benchmark[histogram]>=4.0",
     "ordered-set>=4.1.0",
     "psutil>=5.9.0",
+    "mypy>=1.0",
 ]
 
 [tool.pytest.ini_options]
