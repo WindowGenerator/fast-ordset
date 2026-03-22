@@ -1,10 +1,10 @@
-from typing import Sequence, Hashable, Iterator, TypeVar, Set, Union, Optional, List
+from typing import Sequence, Hashable, Iterator, TypeVar, Set, Union, Optional, List, Generic
 
 
 Item = TypeVar("Item", bound=Hashable)
 
 # https://docs.python.org/3/library/stdtypes.html#set-types-set-frozenset
-class OrderedSet(object):
+class OrderedSet(Generic[Item]):
     def __init__(self, initial_items: Optional[Sequence[Item]] = None) -> None:
         ...
     
@@ -14,13 +14,13 @@ class OrderedSet(object):
     def __len__(self) -> int:
         ...
     
-    def __eq__(self, value: Sequence) -> bool: 
+    def __eq__(self, other: object) -> bool: 
         ...
     
     def __getitem__(self, index: int) -> Item:
         ...
     
-    def __iter__(self) -> Iterator:
+    def __iter__(self) -> Iterator[Item]:
         ...
     
     def __next__(self) -> Item:
@@ -44,55 +44,55 @@ class OrderedSet(object):
     def clear(self) -> None:
         ...
     
-    def copy(self) -> OrderedSet:
+    def copy(self) -> OrderedSet[Item]:
         ...
     
     def update(self, items: Sequence[Item]) -> None:
         ...
     
-    def __ior__(self, items: Union[OrderedSet, Set]) -> OrderedSet:
+    def __ior__(self, items: Union[OrderedSet[Item], Set[Item]]) -> OrderedSet[Item]:
         ...
     
-    def union(self, items: Sequence[Item]) -> OrderedSet:
+    def union(self, items: Sequence[Item]) -> OrderedSet[Item]:
         ...
     
-    def __or__(self, items: Union[OrderedSet, Set]) -> OrderedSet:
+    def __or__(self, items: Union[OrderedSet[Item], Set[Item]]) -> OrderedSet[Item]:
         ...
     
-    def difference(self, other_items: Sequence[Item]) -> OrderedSet:
+    def difference(self, other_items: Sequence[Item]) -> OrderedSet[Item]:
         ...
     
-    def __sub__(self, items: Union[OrderedSet, Set]) -> OrderedSet:
+    def __sub__(self, items: Union[OrderedSet[Item], Set[Item]]) -> OrderedSet[Item]:
         ...
     
     def difference_update(self, other_items: Sequence[Item]) -> None:
         ...
     
-    def __isub__(self, items: Union[OrderedSet, Set]) -> None:
+    def __isub__(self, items: Union[OrderedSet[Item], Set[Item]]) -> None:
         ...
     
-    def symmetric_difference(self, other_items: Sequence[Item]) -> OrderedSet:
+    def symmetric_difference(self, other_items: Sequence[Item]) -> OrderedSet[Item]:
         ...
     
-    def __xor__(self, other_items: Union[OrderedSet, Set]) -> OrderedSet:
+    def __xor__(self, other_items: Union[OrderedSet[Item], Set[Item]]) -> OrderedSet[Item]:
         ...
     
     def symmetric_difference_update(self, other_items: Sequence[Item]) -> None:
         ...
     
-    def __ixor__(self, other_items: Union[OrderedSet, Set]) -> None:
+    def __ixor__(self, other_items: Union[OrderedSet[Item], Set[Item]]) -> None:
         ...
     
-    def intersection(self, other_items: Sequence[Item]) -> OrderedSet:
+    def intersection(self, other_items: Sequence[Item]) -> OrderedSet[Item]:
         ...
     
-    def __and__(self, other_items: Sequence[Item]) -> OrderedSet:
+    def __and__(self, other_items: Sequence[Item]) -> OrderedSet[Item]:
         ...
     
     def intersection_update(self, other_items: Sequence[Item]) -> None:
         ...
     
-    def __iand__(self, other_items: Sequence[Item]) -> OrderedSet:
+    def __iand__(self, other_items: Sequence[Item]) -> OrderedSet[Item]:
         ...
     
     def to_list(self) -> List[Item]:
