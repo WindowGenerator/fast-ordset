@@ -57,35 +57,29 @@ jobs:
           - name: aarch64-apple-darwin
             os: macos-latest
             target: aarch64
-        exclude:
-          # Python 3.9 has limited wheel support on some platforms
-          - python-version: "3.9"
-            platform:
-              name: aarch64-apple-darwin
-    
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      
+
       - name: Set up Rust
         uses: dtolnay/rust-toolchain@stable
-      
+
       - name: Install uv
         uses: astral-sh/setup-uv@v2
         with:
           enable-cache: false
-      
+
       - name: Set PyO3 environment variables
         shell: bash
         run: |
           echo "UNSAFE_PYO3_BUILD_FREE_THREADED=1" >> $GITHUB_ENV
           echo "UNSAFE_PYO3_SKIP_VERSION_CHECK=1" >> $GITHUB_ENV
           echo "PYO3_USE_ABI3_FORWARD_COMPATIBILITY=1" >> $GITHUB_ENV
-      
+
       - name: Source common env (Linux only)
         if: matrix.platform.os == 'ubuntu-latest'
         shell: bash
@@ -94,17 +88,12 @@ jobs:
           echo "CC=$CC" >> $GITHUB_ENV
           echo "CFLAGS=$CFLAGS" >> $GITHUB_ENV
           echo "RUSTFLAGS=$RUSTFLAGS" >> $GITHUB_ENV
-      
+
       - name: Install musl tools (Linux x86_64)
         if: matrix.platform.name == 'x86_64-unknown-linux-gnu'
         run: sudo apt-get update && sudo apt-get install -y musl-tools
-      
-      - name: Build wheel (aarch64 macOS)
-        if: matrix.platform.name == 'aarch64-apple-darwin'
-        run: uvx maturin build --release -o dist --target aarch64-apple-darwin
-      
+
       - name: Build wheel
-        if: matrix.platform.name != 'aarch64-apple-darwin'
         run: uvx maturin build --release -o dist
       
       - name: Upload wheels
